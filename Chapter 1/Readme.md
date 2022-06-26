@@ -211,3 +211,83 @@ ISO adoptó una revisión del estándar C en 1999 (ISO/IEC 9899:1999; consulte h
 Los estándares C son independientes de los detalles de cualquier sistema operativo; es decir, no están vinculados al sistema UNIX. Esto significa que los programas de C escritos usando sólo la biblioteca de C estándar deben ser portátiles a cualquier computadora y sistema operativo que proporcione una implementación de C.
 
 Históricamente, C89 a menudo se llamaba ANSI C, y este término a veces todavía se usa con ese significado. Por ejemplo, gcc emplea ese significado; su calificador –ansi significa "compatible con todos los programas ISO C90". Sin embargo, evitamos este término porque ahora es algo ambiguo. Desde que el comité ANSI adoptó el C99 revisión, hablando con propiedad, ANSI C ahora es C99.
+
+### Los primeros estándares POSIX
+
+El término POSIX (una abreviatura de Portable Operating System Interface) se refiere a un
+grupo de normas desarrolladas bajo los auspicios del Instituto de Electricidad y Electronic Engineers (IEEE), específicamente su Comité de Estándares de Aplicaciones Portátiles (PASC, http://www.pasc.org/). El objetivo de los estándares PASC es promover portabilidad de aplicaciones a nivel de código fuente.
+El nombre POSIX fue sugerido por Richard Stallman. Aparece la X final porque los nombres de la mayoría de las variantes de UNIX terminan en X. El estándar señala que el nombre debe pronunciarse "pahz-icks", como "positivo".
+El más interesante de los estándares POSIX para nuestros propósitos es el primer POSIX
+estándar, denominado POSIX.1 (o, más completamente, POSIX 1003.1), y el subsiguiente estándar POSIX.2.
+
+### POSIX.1 y POSIX.2
+
+POSIX.1 se convirtió en un estándar IEEE en 1988 y, con revisiones menores, fue adoptado como estándar ISO en 1990 (ISO/IEC 9945-1:1990). (Los estándares POSIX originales no están disponibles en línea, pero se pueden comprar en IEEE en http://www.ieee.org/). POSIX.1 se basó inicialmente en un estándar no oficial anterior (1984) producido por una asociación de proveedores de UNIX llamada /usr/group.
+
+POSIX.1 documenta una API para un conjunto de servicios que un sistema operativo compatible debe poner a disposición de un programa. Un sistema operativo que hace esto puede certificarse como compatible con POSIX.1.
+
+POSIX.1 se basa en la llamada al sistema UNIX y la función de biblioteca C API, pero no requiere ninguna implementación en particular para asociarse con esta interfaz. Esto significa que la interfaz puede ser implementada por cualquier sistema operativo, no es específicamente un sistema operativo UNIX. De hecho, algunos proveedores han agregado API a sus sistemas operativos patentados que los hacen compatibles con POSIX.1, mientras que en al mismo tiempo, dejando el sistema operativo subyacente prácticamente sin cambios.
+
+También fueron importantes varias extensiones del estándar POSIX.1 original IEEE POSIX 1003.1b (POSIX.1b, anteriormente llamado POSIX.4 o POSIX 1003.4), ratificado en 1993, contiene una variedad de extensiones en tiempo real del estándar POSIX base.
+IEEE POSIX 1003.1c (POSIX.1c), ratificado en 1995, es la definición de POSIX hilos. En 1996, una versión revisada del estándar POSIX.1 (ISO/IEC 9945-1:1996) fue producido, dejando el texto central sin cambios, pero incorporando el tiempo real y extensiones de hilos. IEEE POSIX 1003.1g (POSIX.1g) definió las API de red, incluyendo enchufes. IEEE POSIX 1003.1d (POSIX.1d), ratificado en 1999, y POSIX.1j, ratificado en 2000, definió extensiones adicionales en tiempo real al estándar base POSIX.
+
+Las extensiones en tiempo real POSIX.1b incluyen sincronización de archivos; E/S asíncrona; programación de procesos; relojes y temporizadores de alta precisión; y comunicación entre procesos utilizando semáforos, memoria compartida y colas de mensajes. El prefijo POSIX a menudo se aplica a los tres métodos de comunicación entre procesos para distinguirlos de los semáforos, la memoria compartida y las colas de mensajes de System V similares, pero más antiguos.
+
+Un estándar relacionado, POSIX.2 (1992, ISO/IEC 9945-2:1993), estandarizó el shell y varias utilidades de UNIX, incluida la interfaz de línea de comandos del compilador C.
+
+### FIPS 151-1 y FIPS 151-2
+
+FIPS es una abreviatura de Federal Information Processing Standard, el nombre de un conjunto de estándares especificados por el gobierno de los EE. UU. para la compra de su computadora sistemas En 1989, se publicó FIPS 151-1. Esta norma se basó en la de 1988 estándar IEEE POSIX.1 y el borrador del estándar ANSI C. La principal diferencia entre FIPS 151-1 y POSIX.1 (1988) fue que el estándar FIPS requería algunos características que POSIX.1 dejó como opcionales. Debido a que el gobierno de EE. UU. es un importante comprador de sistemas informáticos, la mayoría de los proveedores de computadoras se aseguraron de que sus sistemas UNIX se ajustaran a la versión FIPS 151-1 de POSIX.1. FIPS 151-2 se alineó con la edición ISO de 1990 de POSIX.1, pero por lo demás no se modificó. El ahora obsoleto FIPS 151-2 fue retirado como estándar en febrero de 2000.
+
+### X/Open Company y el grupo abierto
+
+X/Open Company fue un consorcio formado por un grupo internacional de proveedores de computadoras para adoptar y adaptar los estándares existentes con el fin de producir un conjunto completo y consistente de estándares de sistemas abiertos. Produjo el X/Open Portability Guide, una serie de guías de portabilidad basadas en los estándares POSIX. El primer lanzamiento importante de esta guía fue el número 3 (XPG3) en 1989, seguido por XPG4 en 1992. XPG4 fue revisado en 1994, lo que resultó en XPG4 versión 2, un estándar que también incorporó partes importantes de la definición de interfaz System V de AT&T Problema 3, descrito en la Sección 1.3.7. Esta revisión también se conoció como Spec 1170, con 1170 que se refiere al número de interfaces (funciones, archivos de encabezado y comandos) definida por la norma.
+
+Cuando Novell, que adquirió el negocio de sistemas UNIX de AT&T a principios 1993, luego se desprendió de ese negocio, transfirió los derechos al UNIX marca registrada de X/Open. (El plan para hacer esta transferencia se anunció en 1993, pero los requisitos legales retrasaron la transferencia hasta principios de 1994). y también se conoce como UNIX 95. Este reempaquetado incluía XPG4 versión 2, el Especificación de la versión 2 de X/Open Curses Issue 4 y la especificación de X/Open Networking Services (XNS) Issue 4. Versión 2 de la especificación UNIX única (SUSv2, http://www.unix.org/version2/online.html) apareció en 1997 y UNIX las implementaciones certificadas con esta especificación pueden llamarse UNIX 98. (Este estándar también se conoce ocasionalmente como XPG5). En 1996, X/Open se fusionó con Open Software Foundation (OSF) para formar The Grupo abierto. Casi todas las empresas u organizaciones involucradas con el sistema UNIX ahora es miembro de The Open Group, que continúa desarrollando estándares API. OSF fue uno de los dos consorcios de proveedores formados durante las guerras UNIX de finales 1980 Entre otros, OSF incluyó a Digital, IBM, HP, Apollo, Bull, Nixdorf, y Siemens. OSF se formó principalmente en respuesta a la amenaza creada por un alianza comercial entre AT&T (los creadores de UNIX) y Sun (la empresa más poderoso jugador en el mercado de estaciones de trabajo UNIX). En consecuencia, AT&T, Sun, y otras empresas formaron el consorcio internacional UNIX rival.
+
+### SUSv3 y POSIX.1-2001
+
+A partir de 1999, el IEEE, The Open Group y el Comité Técnico Conjunto ISO/IEC El Comité 1 colaboró en el Grupo de Revisión de Estándares Comunes de Austin (CSRG, http://www.opengroup.org/austin/) con el objetivo de revisar y consolidar la estándares POSIX y la especificación UNIX única. (El Grupo Austin es tan nombrado porque su reunión inaugural fue en Austin, Texas en septiembre de 1998.) Esto resultó en la ratificación de POSIX 1003.1-2001, a veces simplemente llamado POSIX.1-2001, en diciembre de 2001 (posteriormente aprobada como norma ISO, ISO/CEI 9945:2002). POSIX 1003.1-2001 reemplaza SUSv2, POSIX.1, POSIX.2 y una serie de otros estándares POSIX anteriores. Este estándar también se conoce como la especificación única de UNIX.
+Versión 3, y generalmente nos referiremos a ella en el resto de este libro como SUSv3.
+
+Las especificaciones básicas de SUSv3 consisten en alrededor de 3700 páginas, divididas en
+siguientes cuatro partes:
+
+- Definiciones básicas (XBD): esta parte contiene definiciones, términos, conceptos y
+  especificaciones del contenido de los archivos de cabecera. Se proporciona un total de 84 especificaciones de archivos de encabezado.
+- Interfaces del sistema (XSH): esta parte comienza con diversa información básica útil. Su mayor parte consiste en la especificación de varias funciones (que son implementado como llamadas al sistema o funciones de biblioteca en implementaciones específicas de UNIX). En esta parte se incluyen un total de 1123 interfaces del sistema.
+- Shell and Utilities (XCU): Esto especifica la operación del shell y varios
+  Comandos UNIX. En esta parte se especifica un total de 160 utilidades.
+- Justificación (XRAT): esta parte incluye texto informativo y justificaciones relacionadas con las partes anteriores.
+
+Además, SUSv3 incluye la especificación X/Open CURSES Issue 4 Version 2 (XCURSES), que especifica 372 funciones y 3 archivos de encabezado para la API de manejo de pantalla curses. En total, se especifican 1742 interfaces en SUSv3. Por el contrario, POSIX.1-1990 (con FIPS 151-2) especificó 199 interfaces y POSIX.2-1992 especificó 130 utilidades.
+SUSv3 está disponible en línea en http://www.unix.org/version3/online.html. UNIX las implementaciones certificadas contra SUSv3 pueden llamarse UNIX 03. Ha habido varias correcciones menores y mejoras para los problemas descubiertos desde la ratificación del texto SUSv3 original. Estos han dado como resultado la aparición del Corrección Técnica Número 1, cuyas mejoras fueron incorporadas en una revisión de 2003 de SUSv3, y la Corrección Técnica Número 2, cuyas Se incorporaron mejoras en una revisión de 2004.
+
+### Conformidad con POSIX, conformidad con XSI y la extensión XSI
+
+Históricamente, los estándares SUS (y XPG) diferían del POSIX correspondiente estándares y se estructuraron como superconjuntos funcionales de POSIX. Además de especificar interfaces adicionales, los estándares SUS hicieron obligatorios muchos de los interfaces y comportamientos que se consideraban opcionales en POSIX.
+
+Esta distinción sobrevive algo más sutilmente en POSIX 1003.1-2001, que es un estándar IEEE y un estándar técnico de grupo abierto (es decir, como se indica ya es una consolidación de los estándares POSIX y SUS anteriores). Este documento define dos niveles de conformidad:
+
+- Conformidad con POSIX: Esto define una línea de base de interfaces que un debe proporcionar la implementación. Permite la implementación para proporcionar otros interfaces opcionales.
+
+- Conformidad con X/Open System Interface (XSI): para ser compatible con XSI, una implementación debe cumplir con todos los requisitos de conformidad con POSIX y también debe proporcionar una serie de interfaces y comportamientos que solo se requieren opcionalmente para conformidad con POSIX. Una implementación debe alcanzar este nivel de conformidad para obtener la marca UNIX 03 de The Open Group.
+
+Las interfaces y los comportamientos adicionales necesarios para la conformidad con XSI se conocen colectivamente como la extensión XSI. Incluyen compatibilidad con funciones como subprocesos,
+mmap() y munmap(), la API dlopen, límites de recursos, pseudoterminales, System V IPC, la API de syslog, encuesta () y contabilidad de inicio de sesión.
+
+En capítulos posteriores, cuando hablamos de conformidad con SUSv3, nos referimos a XSI conformidad Debido a que POSIX y SUSv3 ahora son parte del mismo documento, el adicional
+Las interfaces y la selección de opciones obligatorias requeridas para SUSv3 se indican mediante el uso de marcas de sombreado y margen dentro del texto del documento.
+
+### Sin especificar y débilmente especificado
+
+Ocasionalmente, nos referimos a una interfaz como "no especificada" o "débilmente especificada"
+dentro de SUSv3.
+Por una interfaz no especificada, nos referimos a una que no está definida en absoluto en el formato formal. estándar, aunque en algunos casos hay notas de antecedentes o texto de justificación que mencionar la interfaz.
+Decir que una interfaz está débilmente especificada es una forma abreviada de decir que, mientras que la la interfaz está incluida en el estándar, los detalles importantes no se especifican (comúnmente porque los miembros del comité no pudieron llegar a un acuerdo debido a las diferencias en las implementaciones existentes).
+Cuando usamos interfaces que no están especificadas o que están débilmente especificadas, tenemos pocas garantías al portar aplicaciones a otras implementaciones de UNIX. Sin embargo, en algunos casos, dicha interfaz es bastante consistente en todas las implementaciones,
+y cuando esto es así, generalmente lo notamos como tal.
+
+### Características de LEGADO
+
+A veces, notamos que SUSv3 marca una característica específica como LEGADO. Este término denota una característica que se mantiene por compatibilidad con aplicaciones más antiguas, pero cuyas limitaciones significan que se debe evitar su uso en aplicaciones nuevas. En muchos casos, existe alguna otra API que proporciona una funcionalidad equivalente.
