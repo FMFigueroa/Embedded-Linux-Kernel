@@ -291,3 +291,97 @@ y cuando esto es así, generalmente lo notamos como tal.
 ### Características de LEGADO
 
 A veces, notamos que SUSv3 marca una característica específica como LEGADO. Este término denota una característica que se mantiene por compatibilidad con aplicaciones más antiguas, pero cuyas limitaciones significan que se debe evitar su uso en aplicaciones nuevas. En muchos casos, existe alguna otra API que proporciona una funcionalidad equivalente.
+
+### SUSv4 y POSIX.1-2008
+
+En 2008, el grupo de Austin completó una revisión de la especificación combinada POSIX.1 y Single UNIX. Al igual que con la versión anterior del estándar, consta de una especificación básica junto con una extensión XSI. Nos referiremos a esta revisión como SUSv4.
+
+Los cambios en SUSv4 son menos amplios que los que ocurrieron para SUSv3. Los cambios más significativos son los siguientes:
+
+- SUSv4 agrega nuevas especificaciones para una variedad de funciones. Entre las nuevas funciones especificadas que mencionamos en este libro se encuentran dirfd(), fdopendir(), fexecve(), futimens(), mkdtemp(), psignal(), strsignal() y utimensat(). Otra gama de nuevas funciones relacionadas con archivos (p. ej., openat(), descrita en la Sección 18.11) son análogas a funciones existentes (p. ej., open()), pero difieren en que interpretan funciones relativas.
+  nombres de ruta con respecto al directorio al que hace referencia un descriptor de archivo abierto, en lugar de con respecto al directorio de trabajo actual del proceso.
+- Algunas funciones especificadas como opciones en SUSv3 pasan a ser parte obligatoria del estándar base en SUSv4. Por ejemplo, varias funciones que formaban parte de la extensión XSI en SUSv3 pasan a formar parte del estándar base en SUSv4.
+  Entre las funciones que se vuelven obligatorias en SUSv4 se encuentran las de la API dlopen (Sección 42.1), la API de señales en tiempo real (Sección 22.8), la API de semáforos POSIX (Capítulo 53) y la API de temporizadores POSIX (Sección 23.6).
+- Algunas funciones en SUSv3 están marcadas como obsoletas en SUSv4. Estos incluyen asctime(), ctime(), ftw(), gettimeofday(), getitimer(), setitimer() y siginterrupt().
+- Las especificaciones de algunas funciones que se marcaron como obsoletas en SUSv3 se eliminan en SUSv4. Estas funciones incluyen gethostbyname(), gethostbyaddr() y vfork().
+- Varios detalles de las especificaciones existentes en SUSv3 se cambian en SUSv4. Por ejemplo, se agregan varias funciones a la lista de funciones que deben ser seguras para señales asíncronas (Tabla 21-1 en la página 426).
+  En el resto de este libro, notamos cambios en SUSv4 donde son relevantes para el tema que se está discutiendo.
+
+### Cronología de los estándares UNIX
+
+La Figura 1-1 resume las relaciones entre los diversos estándares descritos en las secciones anteriores, y coloca las normas en orden cronológico. En esto diagrama, las líneas continuas indican descendencia directa entre estándares, y las discontinuas las flechas indican casos en los que un estándar influyó en otro estándar, se incorporó como parte de otro estándar o simplemente se aplazó a otro estándar.
+
+La situación con los estándares de red es algo compleja. Los esfuerzos de estandarización en esta área comenzaron a fines de la década de 1980 con la formación de POSIX. 1003.12 para estandarizar la API de sockets, la API X/Open Transport Inter face (XTI) (una API de programación de red alternativa basada en System V Interfaz de la capa de transporte) y varias API asociadas. La gestación de este estándar ocurrió a lo largo de varios años, tiempo durante el cual se renombró POSIX 1003.12 POSIX 1003.1g. Fue ratificado en 2000.
+
+Paralelamente al desarrollo de POSIX 1003.1g, X/Open también estaba desarrollando su especificación de red X/Open (XNS). La primera versión de esta especificación, XNS Issue 4, fue parte de la primera versión de Single UNIX Specification. Eso fue sucedido por XNS Issue 5, que formaba parte de SUSv2. El número 5 de XNS era esencialmente el mismo que el borrador actual (6.6) de POSIX.1g. Esto fue seguido por XNS Issue 5.2, que difería del XNS Issue 5 y el estándar POSIX.1g ratificado al marcar la API de XTI como obsoleta y al incluir la cobertura del Protocolo de Internet versión 6 (IPv6), que se diseñó a mediados de la década de 1990 ). Problema XNS 5.2
+formó la base para el material de red incluido en SUSv3 y, por lo tanto, ahora reemplazado Por razones similares, POSIX.1g se retiró como estándar poco después fue ratificado.
+
+![](./img/fig_1.1.png)
+
+### Estándares de implementación
+
+Estándares de implementación
+Además de los estándares producidos por grupos independientes o multipartidarios, a veces se hace referencia a los dos estándares de implementación definidos por el documento final.
+Versión BSD (4.4BSD) y System V Release 4 (SVR4) de AT&T. El último estándar de implementación fue formalizado por la publicación de AT&T de la definición de interfaz System V (SVID). En 1989, AT&T publicó el número 3 de SVID, que definía la interfaz que debe proporcionar una implementación de UNIX para poder llamarse System V Release 4. (El SVID está disponible en línea en http://www.sco.com/desarrolladores/devspecs/.)
+
+Debido a que el comportamiento de algunas llamadas al sistema y funciones de biblioteca varía entre
+SVR4 y BSD, muchas implementaciones de UNIX proporcionan bibliotecas de compatibilidad y facilidades de compilación condicional que emulan el comportamiento de cualquier El sabor de UNIX no se usa como base para esa implementación en particular (ver Sección 3.6.1). Esto alivia la carga de portar una aplicación desde otra Implementación UNIX.
+
+### Linux, estándares y la base estándar de Linux
+
+Como objetivo general, el desarrollo de Linux (es decir, kernel, glibc y herramientas) tiene como objetivo cumplir a los diversos estándares UNIX, especialmente POSIX y Single UNIX Specification. Sin embargo, en el momento de escribir este artículo, ninguna distribución de Linux está marcada como “UNIX” por The Open Group. Los problemas son el tiempo y los gastos. Cada proveedor
+la distribución tendría que someterse a pruebas de conformidad para obtener esta marca,
+y necesitaría repetir esta prueba con cada nuevo lanzamiento de distribución. No obstante, es la casi conformidad de facto con varios estándares lo que ha permitido Linux para tener tanto éxito en el mercado UNIX.
+
+Con la mayoría de las implementaciones comerciales de UNIX, la misma empresa desarrolla y distribuye el sistema operativo. Con Linux, las cosas son diferentes, en eso la implementación es independiente de la distribución, y múltiples organizaciones, ambas comercial y no comercial: manejar la distribución de Linux.
+
+Linus Torvalds no contribuye ni respalda ninguna distribución de Linux en particular. Sin embargo, en términos de otras personas que llevan a cabo el desarrollo de Linux, el la situación es más compleja. Muchos desarrolladores que trabajan en el kernel de Linux y en otros proyectos de software libre son empleados por varias empresas de distribución de Linux o trabajar para empresas (como IBM y HP) con un fuerte interés en Linux. Tiempo estas empresas pueden influir en la dirección en la que se mueve Linux asignando horas de programador a determinados proyectos, ninguno de ellos controla Linux como tal. Y, por supuesto, muchos de los otros contribuyentes al kernel de Linux y proyectos GNU trabajar voluntariamente.
+
+En el momento de escribir este artículo, Torvalds trabaja como miembro en la Fundación Linux (http://www.linux-foundation.org/; anteriormente Open Source Development Laboratory, OSDL), un consorcio sin fines de lucro de organizaciones comerciales y no comerciales creadas para fomentar el crecimiento de Linux.
+
+Debido a que existen varios distribuidores de Linux y a que los implementadores del kernel no controlan el contenido de las distribuciones, no existe un comercial "estándar". Linux como tal. La oferta de kernel de cada distribuidor de Linux generalmente se basa en una instantánea del kernel de la línea principal (es decir, Torvalds) en un momento determinado, con un número de parches aplicados.
+
+Estos parches suelen proporcionar características que, en mayor o menor medida, son considerada comercialmente deseable y, por lo tanto, capaz de proporcionar una diferenciación competitiva en el mercado. En algunos casos, estos parches se aceptan posteriormente en el núcleo principal. De hecho, algunas características nuevas del núcleo fueron desarrolladas inicialmente por una empresa de distribución y aparecieron en su distribución antes de ser finalmente distribuidas.
+
+integrado en la línea principal. Por ejemplo, la versión 3 del archivo de diario de Reiserfs
+sistema era parte de algunas distribuciones de Linux mucho antes de que fuera aceptado en el
+Núcleo de la línea principal 2.4.
+
+El resultado de los puntos anteriores es que hay diferencias (en su mayoría menores) en los sistemas ofrecidos por las distintas empresas distribuidoras de Linux. en mucho escala más pequeña, esto recuerda las divisiones en las implementaciones que ocurrieron en los primeros años de UNIX. Linux Standard Base (LSB) es un esfuerzo por garantizar la compatibilidad entre las diversas distribuciones de Linux. Para ello, el LSB (http://www.linux-foundation.org/en/LSB) desarrolla y promueve un conjunto de estándares para Sistemas Linux con el objetivo de garantizar que las aplicaciones binarias (es decir, los programas compilados) puedan ejecutarse en cualquier sistema compatible con LSB.
+
+portabilidad promovida por POSIX. La portabilidad del código fuente significa que podemos escriba un programa en C y luego compílelo y ejecútelo con éxito en cualquier sistema compatible con POSIX. La compatibilidad binaria es mucho más exigente y, por lo general, no es factible en diferentes plataformas de hardware. Nos permite compilar un programa una vez para una plataforma de hardware dada, y luego ejecutarlo compilado programe en cualquier implementación conforme que se ejecute en esa plataforma de hardware. La portabilidad binaria es un requisito esencial para la viabilidad comercial de las aplicaciones de proveedores de software independientes (ISV) creadas para Linux.
+
+### Resumen
+
+El sistema UNIX se implementó por primera vez en 1969 en una minicomputadora Digital PDP-7 por Ken Thompson en Bell Laboratories (parte de AT&T). El sistema operativo dibujó muchas ideas, así como su nombre con juegos de palabras, del anterior sistema MULTICS. Por 1973, UNIX se trasladó a la minicomputadora PDP-11 y se reescribió en C, un lenguaje de programación diseñado e implementado en Bell Laboratories por Dennis Ritchie. Impedido legalmente de vender UNIX, AT&T distribuyó el sistema completo a las universidades por un cargo nominal. Esta distribución incluía fuente y se hizo muy popular dentro de las universidades, ya que proporcionaba un sistema operativo barato cuyo código podía ser estudiado y modificado por académicos y estudiantes de informática.
+
+La Universidad de California en Berkeley desempeñó un papel clave en el desarrollo del sistema UNIX. Allí, Ken Thompson y varios estudiantes de posgrado amplió el sistema operativo. Para 1979, la Universidad estaba produciendo su propia Distribución UNIX, BSD. Esta distribución se generalizó en el mundo académico y formó la base para varias implementaciones comerciales.
+Mientras tanto, la ruptura del monopolio de AT&T permitió a la empresa vender el sistema UNIX. Esto resultó en la otra variante principal de UNIX, System V, que también formó la base para varias implementaciones comerciales.
+
+Dos corrientes diferentes llevaron al desarrollo de (GNU/) Linux. Uno de estos fue el proyecto GNU, fundado por Richard Stallman. A fines de la década de 1980, GNU El proyecto había producido una implementación de UNIX casi completa y de libre distribución. La única parte que faltaba era un kernel funcional. En 1991, inspirado por el núcleo Minix escrito por Andrew Tanenbaum, Linus Torvalds produjo un UNIX funcional.
+
+kernel para la arquitectura Intel x86-32. Torvalds invitó a otros programadores a únase a él para mejorar el núcleo. Muchos programadores lo hicieron y, con el tiempo, Linux fue ampliado y portado a una amplia variedad de arquitecturas de hardware.
+Los problemas de portabilidad que surgieron de las variaciones en las implementaciones de UNIX y C que existían a fines de la década de 1980 crearon una fuerte presión para la estandarización. El lenguaje C se estandarizó en 1989 (C89), y se revisó un estándar.
+
+producido en 1999 (C99). El primer intento de estandarizar el sistema operativo interfaz produjo POSIX.1, ratificado como estándar IEEE en 1988 y como estándar ISO en 1990. Durante la década de 1990, se redactaron más estándares, incluidos varios versiones de la especificación UNIX única. En 2001, el POSIX combinado 1003.1-2001 y se ratificó el estándar SUSv3. Esta norma consolida y amplía diversas estándares POSIX anteriores y versiones anteriores de Single UNIX Specification. En
+En 2008, se completó una revisión menos amplia del estándar, lo que produjo el estándar combinado POSIX 1003.1-2008 y SUSv4.
+
+A diferencia de la mayoría de las implementaciones comerciales de UNIX, Linux separa la implementación de la distribución. En consecuencia, no existe una única distribución de Linux “oficial”. La oferta de cada distribuidor de Linux consiste en una instantánea del estable actual
+kernel, con varios parches aplicados. LSB desarrolla y promueve un conjunto de estándares para sistemas Linux con el objetivo de garantizar la compatibilidad de aplicaciones binarias en todas las distribuciones de Linux, de modo que las aplicaciones compiladas deberían poder ejecutarse en
+cualquier sistema compatible con LSB que se ejecute en el mismo hardware.
+
+### Más información
+
+Se puede encontrar más información sobre la historia y los estándares de UNIX en [Ritchie,
+1984], [McKusick et al., 1996], [McKusick & Neville-Neil, 2005], [Libes & Ressler, 1989], [Garfinkel et al., 2003], [Stevens y Rago, 2005], [Stevens, 1999], [Quartermann y Wilhelm, 1993], [Goodheart y Cox, 1994] y [McKusick, 1999].
+
+[Salus, 1994] es una historia detallada de UNIX, de la cual se extrajo gran parte de la información al comienzo de este capítulo. [Salus, 2008] ofrece una breve historia de Linux y otros proyectos de software libre. Muchos detalles de la historia de UNIX también se puede encontrar en el libro en línea Historia de UNIX, escrito por Ronda Hauben.
+
+Este libro está disponible en http://www.dei.isep.ipp.pt/~acc/docs/unix.html. Una extremadamente
+cronograma detallado que muestra los lanzamientos de varias implementaciones de UNIX puede ser
+se encuentra en http://www.levenez.com/unix/.
+
+[ Josey, 2004] proporciona una descripción general de la historia del sistema UNIX y la desarrollo de SUSv3, orientación sobre cómo usar la especificación, tablas de resumen de las interfaces en SUSv3, y guías de migración para las transiciones de SUSv2 a SUSv3 y C89 a C99.
+
+Además de proporcionar software y documentación, el sitio web de GNU (http://www.gnu.org/) contiene una serie de artículos filosóficos sobre el tema de la libre software. [Williams, 2002] es una biografía de Richard Stallman.
+Torvalds proporciona su propio relato del desarrollo de Linux en [Torvalds & Diamante, 2001].
